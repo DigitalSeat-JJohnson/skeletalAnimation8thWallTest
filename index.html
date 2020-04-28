@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+  <title>Skeletal Prototype</title>
+
+<!-- Other external scripts and meta tags can also be added. -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <!-- We've included a slightly modified version of A-Frame, which fixes some polish concerns -->
+    <script src="//cdn.8thwall.com/web/aframe/8frame-0.8.2.min.js"></script>
+    <script defer src="//cdn.8thwall.com/web/aframe/aframe-animation-component-5.1.2.min.js"></script>
+    <script src="//cdn.8thwall.com/web/aframe/aframe-extras-4.2.0.min.js"></script>
+
+  <!-- 8thWall Web - Replace the app key here with your own app key -->
+  <script
+    src="//apps.8thwall.com/xrweb?appKey=j98taBXRyayWI1SxeSYS7GQt8cdWPFJamdbng0RWy7BYhnpfjDhwBQ6r6jukLflzFPCqTb"></script>
+
+  <!-- client code -->
+  <script src="eventfuncs2.js" type="text/javascript"></script>
+
+  <script> 
+  var test = 1;
+  function buttonFunction() {
+      document.getElementById("overlay").style.visibility = "hidden";
+      document.getElementById("button").style.width = "55px";
+      test = 2;
+  }
+  </script>
+
+</head>
+
+<body>
+
+   <img id="overlay"
+  style="height:383px; width:178px; z-index: 99999; position:fixed; top:70px; left:100px; visibility:hidden;"
+  src="assets/overlay.png">
+  
+  <button onclick="buttonFunction()" id="button"
+  style="height:50px; width:50px; z-index: 9999999; position:fixed; top:53px; right:75px; background:transparent; border: none;"
+  ></button>
+
+<a-scene
+  initial-tap
+  startup-overlay
+  gesture-detector
+
+  xrweb>
+
+  <!-- We can define assets here to be loaded when A-Frame initializes -->
+  <a-assets>
+
+    <a-asset-item id="sandCastleModel" src="assets/8.glb"></a-asset-item>
+
+    
+  </a-assets>
+
+  <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
+  <a-camera
+    id="camera"
+    position="0 8 8"
+    raycaster="objects: .cantap"
+    cursor="
+      fuse: false;
+      rayOrigin: mouse;">
+  </a-camera>
+
+  <a-entity
+    light="type: directional;
+           intensity: 0.8;"
+    position="1 4.3 2.5">
+  </a-entity>
+
+  <a-entity light="type: ambient; color: #CCC; intensity: .1"></a-entity>
+  <a-entity light="type: directional; color: #fadfd7; intensity: 4" position="0 0 0"></a-entity>
+  <a-entity light="type: directional; color: #fadfd7; intensity: 1.5" position="1.2 -1.2 1"></a-entity>
+  <a-entity light="type: directional; color: ##dae3f2; intensity: 3" position="-.8 1 0"></a-entity>
+
+  <a-entity id="model" gltf-model="#sandCastleModel" class="cantap" hold-drag two-finger-spin pinch-scale scale="2 2 2" visible="false"
+  cube-env-map animation-mixer></a-entity>
+
+
+  <a-entity
+    id="ground"
+    class="cantap"
+    geometry="primitive: box"
+    material="color: #ffffff; transparent: true; opacity: 0.0"
+    scale="1000 2 1000"
+    position="0 -1 0">
+  </a-entity>
+  
+</a-scene>
+
+  
+</body>
+</html>
